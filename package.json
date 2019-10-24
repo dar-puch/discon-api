@@ -1,0 +1,22 @@
+{
+  "name": "discogs-connector",
+  "version": "1.0.0",
+  "description": "library for connecting with Discogs API",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run clean && npm run lint && npm run build:ts",
+    "build:ts": "tsc",
+    "lint": "tslint -c ./tslint.json 'src/*.ts' && tsc --noEmit",
+    "clean": "rimraf ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@stash.stepstone.com:7999/~puchnd01/typescript-practice.git"
+  },
+  "author": "Daria",
+  "license": "ISC",
+  "devDependencies": {
+    "@stepstone/tslint-config-stepstone": "^1.3.0",
+    "tslint": "^5.20.0"
+  }
+}

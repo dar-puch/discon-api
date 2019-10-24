@@ -1,0 +1,17 @@
+- stwórz w Typescripcie bibliotekę służącą do łączenia się z wybranym przez ciebie API
+        - niech to będzie projekt NPM (czyli z plikiem package.json)
+        - zbuduj ją w oparciu o wybraną przez ciebie metodę do robienia HTTP requestów (np. fetch, axios, xhrhttprequest)
+        - niech biblioteka ma jedną lub więcej metod do pobierania danych bez podawania informacji na temat samego API
+            - np. metoda nazywa się "getGitHubProject('girlsjs')", a pod spodem robi fetch('https://api.github.com/orgs/girlsjs/repos')
+    - otypuj swoją bibliotekę
+        - zamodeluj interfejs odpowiedzi z API
+        - zdefiniuj typy parametrów wejściowych i wyjściowych metod w bibliotece
+    - dodaj do package.json skrypt kompilujący tę bibliotekę do JS
+        - będziesz potrzebowała użyć typescript compilera oraz stworzyć tsconfig.json
+        - bądź w stanie wyjaśnić każde z pól które zdefiniowałaś w tsconfigu
+        - szczególnie zastanów się nad tym jakie wartości chcesz przypisać polom target, module, moduleResolution, lib
+            - dlaczego takie?
+    - dodaj do package.json skrypt lintujący kod biblioteki
+        - niech używa stepstone'owego configa TS
+        - niech uruchamia się automatycznie przed buildem
+    - w następnym zadaniu użyjemy twojej biblioteki w jakiejś prostej aplikacji :)
