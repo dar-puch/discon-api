@@ -15,3 +15,39 @@
         - niech używa stepstone'owego configa TS
         - niech uruchamia się automatycznie przed buildem
     - w następnym zadaniu użyjemy twojej biblioteki w jakiejś prostej aplikacji :)
+
+
+    pytania: dlaczego musiałam zainstalować tslint i typescript jako dev-dep mimo, że mam je globalnie?
+
+  tslint accepts the following command-line options:
+
+    -c, --config:
+    The location of the configuration file that tslint will use to
+    determine which rules are activated and what options to provide
+    to the rules. If no option is specified, the config file named
+    tslint.json is used, so long as it exists in the path.
+    The format of the file is { rules: { /* rules list */ } },
+    where /* rules list */ is a key: value comma-separated list of
+    rulename: rule-options pairs. Rule-options can be either a
+    boolean true/false value denoting whether the rule is used or not,
+    or a list [boolean, ...] where the boolean provides the same role
+    as in the non-list case, and the rest of the list are options passed
+    to the rule that will determine what it checks for (such as number
+    of characters for the max-line-length rule, or what functions to ban
+    for the ban rule).
+
+    -p, --project:
+    The path or directory containing a tsconfig.json file that will be
+    used to determine which files will be linted. This flag also enables
+    rules that require the type checker.
+
+Just run tsc and it will look for tsconfig.json in the current as well as all parent folders till it finds it.
+    Run tsc -p ./path-to-project-directory. Of course the path can be absolute or relative to the current directory.
+
+    Consumer Key 	OmCRcVUyDaPdkmtfZisk
+Consumer Secret 	ITwNkHvKmnERqjmfsbZdTgJVWJvgBVVz
+Request Token URL 	https://api.discogs.com/oauth/request_token
+Authorize URL 	https://www.discogs.com/oauth/authorize
+Access Token URL 	https://api.discogs.com/oauth/access_token
+
+https://api.discogs.com/database/search?q=Nirvana&key=OmCRcVUyDaPdkmtfZisk&secret=ITwNkHvKmnERqjmfsbZdTgJVWJvgBVVz

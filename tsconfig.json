@@ -2,9 +2,12 @@
   "compilerOptions": {
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */
-    "target": "es5", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */
+    "target": "es5", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. Przykład: ()=>null will become: function(){return null} as ES5 doesn't have arrow functions */
     "module": "commonjs", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
-    // "lib": [],                             /* Specify library files to be included in the compilation. */
+    "lib": [
+      "es2015",
+      "dom"
+    ], /*  (bez dom mi nie działał fetch a bez es2015 typ promise) Specify library files to be included in the compilation. */
     // "allowJs": true,                       /* Allow javascript files to be compiled. */
     // "checkJs": true,                       /* Report errors in .js files. */
     // "jsx": "preserve",                     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
@@ -12,7 +15,7 @@
     // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
     // "sourceMap": true,                     /* Generates corresponding '.map' file. */
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
-    "outDir": "../dist", /* Redirect output structure to the directory. */
+    "outDir": "./dist", /* Redirect output structure to the directory. */
     "rootDir": "./src", /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     // "composite": true,                     /* Enable project compilation */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */
@@ -36,7 +39,7 @@
     // "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
     // "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
     /* Module Resolution Options */
-    // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
+    "moduleResolution": "node", /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). Gdzie TS szuka plików, które importujemy. (relative, tzn zaczynające się od ./ albo ../ wygląda tak: 1. szuka pliku moduł.js, 2. potem patrzy czy moduł jest główny w bibliotece (zawiera package.json) i wtedy odwołuje się do pliku zdefiniowanego jako main, 3. potem w katalogu moduł pliku index.js) Różnica jest głównie w non-relative imports. Node szuka ich w node_modules w taki sposób jak powyżej. */
     // "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
     // "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
@@ -59,7 +62,6 @@
     "src/*"
   ],
   "exclude": [
-    "node_modules",
-    "**/*.test.ts*"
+    "node_modules"
   ]
 }

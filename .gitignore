@@ -1,0 +1,8 @@
+# modules
+node_modules
+
+# output
+dist
+
+# IDE settings
+.vscode
