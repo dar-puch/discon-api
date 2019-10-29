@@ -2,12 +2,12 @@
   "compilerOptions": {
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */
-    "target": "es5", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. Przykład: ()=>null will become: function(){return null} as ES5 doesn't have arrow functions */
-    "module": "es2015", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "target": "es5", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. Przykład: ()=>null will become: function(){return null} as ES5 doesn't have arrow functions. If you specify ES5, the compiled code can be run by ES5-compliant browsers and engines like Node. If you specify ES6 (== ES2015), the compiled code cannot be run by browsers or engines that do not yet support ES6 (ES2015) features. */
+    "module": "es2015", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. if you would use “es2015”  it would assume that your Javascript engine is capable of parsing es2015 import statement, commonjs can be run in Node*/
     "lib": [
       "es2015",
       "dom"
-    ], /*  (bez dom mi nie działał fetch a bez es2015 typ promise) Specify library files to be included in the compilation. */
+    ], /*  (bez dom mi nie działał fetch a bez es2015 typ promise) Specify library files to be included in the compilation. this tells the compiler which language features are available when the compiled code is run. */
     // "allowJs": true,                       /* Allow javascript files to be compiled. */
     // "checkJs": true,                       /* Report errors in .js files. */
     // "jsx": "preserve",                     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
@@ -26,7 +26,7 @@
     // "isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
     /* Strict Type-Checking Options */
     "strict": true, /* Enable all strict type-checking options. */
-    // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
+    "noImplicitAny": true, /* Raise error on expressions and declarations with an implied 'any' type. */
     // "strictNullChecks": true,              /* Enable strict null checks. */
     // "strictFunctionTypes": true,           /* Enable strict checking of function types. */
     // "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */

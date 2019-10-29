@@ -18,6 +18,7 @@
 
 
     pytania: dlaczego musiałam zainstalować tslint i typescript jako dev-dep mimo, że mam je globalnie?
+    dlaczego nodemon ma problemy z moim kodem?
 
   tslint accepts the following command-line options:
 

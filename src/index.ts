@@ -10,14 +10,14 @@ interface Release {
 };
 //dlaczego nie mogę dodać export?
 
-const search = async (query: string, what: what): Promise<{ releases: Release[] }> => {
+export const search = async (query: string, what: what): Promise<{ releases: Release[] }> => {
   const response = await fetch(`https://api.discogs.com/database/search?${what}=${query}&key=OmCRcVUyDaPdkmtfZisk&secret=ITwNkHvKmnERqjmfsbZdTgJVWJvgBVVz`);
   const json = await response.json();
   const results = json.results;
   console.log('results: ', results);
   return results;
 }
-search('Nirvana', 'artist');
+//search('Nirvana', 'artist');
 
 // const getArtistsReleases = (artistID: number): Promise<{releases: Release[]}> => {
 //   fetch(`https://api.discogs.com/artists/${artistID}/releases`)
@@ -49,4 +49,4 @@ const getLabelsReleases = async (labelID: number): Promise<{ releases: Release[]
   const releases = json.releases
   return releases;
 }
-// przykładowe labelID: 1
+// getLabelsReleases(1);
