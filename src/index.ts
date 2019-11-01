@@ -8,7 +8,7 @@ interface Release {
   title: string,
   year: number
 };
-//dlaczego nie mogę dodać export?
+//dlaczego nie mogę dodać export (export declarations may only appear at top level of a module)?
 
 export const search = async (query: string, what: what): Promise<{ releases: Release[] }> => {
   const response = await fetch(`https://api.discogs.com/database/search?${what}=${query}&key=OmCRcVUyDaPdkmtfZisk&secret=ITwNkHvKmnERqjmfsbZdTgJVWJvgBVVz`);
@@ -17,36 +17,27 @@ export const search = async (query: string, what: what): Promise<{ releases: Rel
   console.log('results: ', results);
   return results;
 }
-//search('Nirvana', 'artist');
+search('Nirvana', 'artist');
 
-// const getArtistsReleases = (artistID: number): Promise<{releases: Release[]}> => {
+// const getArtistsReleases = (artistID: number): Promise<{ releases: Release[] }> => {
 //   fetch(`https://api.discogs.com/artists/${artistID}/releases`)
-//     .then(resp => {
-//       return resp.json();
+//     .then((resp: Response): { releases: Release[] } => {
+//       resp.json();
 //     })
 //     .then(json => {
-//       return json.releases;
+//       json.releases;
 //     })
 //     .catch(error => console.error(error))
 // }
 //dlaczego nie udaje mi się z then?
 
-const getArtistsReleases = async (artistID: number): Promise<{ releases: Release[] }> => {
-  const response = await fetch(`https://api.discogs.com/artists/${artistID}/releases`);
-  const json = await response.json();
-  const releases = json.releases
-  console.log('releases: ', releases);
-  return releases;
-}
-//co z reject? można tu w ogóle zrobić try/catch?
 
-// przykład użycia: 
-//getArtistsReleases(108713);
-
-const getLabelsReleases = async (labelID: number): Promise<{ releases: Release[] }> => {
-  const response = await fetch(`https://api.discogs.com/labels/${labelID}/releases`);
+const getReleases = async (labelID: number, what: 'artists' | 'labels'): Promise<{ releases: Release[] }> => {
+  const response = await fetch(`https://api.discogs.com/${what}/${labelID}/releases`);
   const json = await response.json();
   const releases = json.releases
   return releases;
 }
-// getLabelsReleases(1);
+
+// getReleases(1, labels);
+// getReleases(108713, artists);

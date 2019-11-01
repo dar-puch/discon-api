@@ -3,7 +3,7 @@
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */
     "target": "es5", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. Przykład: ()=>null will become: function(){return null} as ES5 doesn't have arrow functions. If you specify ES5, the compiled code can be run by ES5-compliant browsers and engines like Node. If you specify ES6 (== ES2015), the compiled code cannot be run by browsers or engines that do not yet support ES6 (ES2015) features. */
-    "module": "es2015", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. if you would use “es2015”  it would assume that your Javascript engine is capable of parsing es2015 import statement, commonjs can be run in Node*/
+    "module": "umd", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. if you would use “es2015”  it would assume that your Javascript engine is capable of parsing es2015 import statement, commonjs can be run in Node*/
     "lib": [
       "es2015",
       "dom"
