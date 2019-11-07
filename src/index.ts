@@ -1,14 +1,15 @@
 
-type what = 'release' | 'master' | 'artist' | 'label';
+type what = 'artist' | 'label';
 
 interface Release {
-  artist: string,
   id: number,
-  thumb: string,
+  cover_image: string,
   title: string,
-  year: number
+  catno: string,
+  year: number,
+  artist?: string,
+  label?: string
 };
-//dlaczego nie mogę dodać export (export declarations may only appear at top level of a module)?
 
 export const search = async (query: string, what: what): Promise<{ releases: Release[] }> => {
   const response = await fetch(`https://api.discogs.com/database/search?${what}=${query}&key=OmCRcVUyDaPdkmtfZisk&secret=ITwNkHvKmnERqjmfsbZdTgJVWJvgBVVz`);
@@ -19,20 +20,8 @@ export const search = async (query: string, what: what): Promise<{ releases: Rel
 }
 search('Nirvana', 'artist');
 
-// const getArtistsReleases = (artistID: number): Promise<{ releases: Release[] }> => {
-//   fetch(`https://api.discogs.com/artists/${artistID}/releases`)
-//     .then((resp: Response): { releases: Release[] } => {
-//       resp.json();
-//     })
-//     .then(json => {
-//       json.releases;
-//     })
-//     .catch(error => console.error(error))
-// }
-//dlaczego nie udaje mi się z then?
 
-
-const getReleases = async (labelID: number, what: 'artists' | 'labels'): Promise<{ releases: Release[] }> => {
+export const getReleasesById = async (labelID: number, what: what): Promise<{ releases: Release[] }> => {
   const response = await fetch(`https://api.discogs.com/${what}/${labelID}/releases`);
   const json = await response.json();
   const releases = json.releases
