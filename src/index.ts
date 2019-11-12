@@ -1,7 +1,7 @@
 
-type what = 'artist' | 'label';
+export type what = 'artist' | 'label';
 
-interface Release {
+export interface Release {
   id: number,
   cover_image: string,
   title: string,
@@ -15,10 +15,10 @@ export const search = async (query: string, what: what): Promise<{ releases: Rel
   const response = await fetch(`https://api.discogs.com/database/search?${what}=${query}&key=OmCRcVUyDaPdkmtfZisk&secret=ITwNkHvKmnERqjmfsbZdTgJVWJvgBVVz`);
   const json = await response.json();
   const results = json.results;
-  console.log('results: ', results);
+  console.log('results from library: ', results);
   return results;
 }
-search('Nirvana', 'artist');
+// search('Nirvana', 'artist');
 
 
 export const getReleasesById = async (labelID: number, what: what): Promise<{ releases: Release[] }> => {
