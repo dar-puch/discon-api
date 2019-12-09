@@ -6,27 +6,90 @@ export interface Release {
   cover_image: string,
   title: string,
   catno: string,
-  year: number,
+  year: string,
   artist?: string,
-  label?: string
+  label?: string[]
 };
 
-export const search = async (query: string, what: what): Promise<{ releases: Release[] }> => {
-  const response = await fetch(`https://api.discogs.com/database/search?${what}=${query}&key=OmCRcVUyDaPdkmtfZisk&secret=ITwNkHvKmnERqjmfsbZdTgJVWJvgBVVz`);
-  const json = await response.json();
-  const results = json.results;
-  console.log('results from library: ', results);
-  return results;
+export interface HistoryItem {
+  id: number;
+  date: string;
+  parameters: {
+    queryString: string,
+    what: what,
+  };
+  result: Release[];
+}
+
+export const search = async (query: string, what: what): Promise<Release[]> => {
+  const response = await fetch(`http://localhost:4000/data/?${what}=${query}`);
+  if (response.ok) {
+    const json = await response.json();
+    const results: Release[] = json.results;
+    return results;
+  }
+  else {
+    throw Error(`${response.status}`);
+  }
 }
 // search('Nirvana', 'artist');
 
 
-export const getReleasesById = async (labelID: number, what: what): Promise<{ releases: Release[] }> => {
-  const response = await fetch(`https://api.discogs.com/${what}/${labelID}/releases`);
-  const json = await response.json();
-  const releases = json.releases
-  return releases;
+export const getReleaseById = async (id: number): Promise<Release> => {
+  const response = await fetch(`http://localhost:4000/data/${id}`);
+  if (response.ok) {
+    const json = await response.json();
+    return json;
+  }
+  else {
+    throw Error(`${response.status}`);
+  }
 }
 
-// getReleases(1, labels);
-// getReleases(108713, artists);
+export const getHistory = async (): Promise<HistoryItem[]> => {
+  const response = await fetch(`http://localhost:4000/history`);
+  if (response.ok) {
+    const json = await response.json();
+    return json;
+  }
+  else {
+    throw Error(`${response.status}`);
+  }
+};
+
+export const addToHistory = async (item: HistoryItem): Promise<void> => {
+  const response = await fetch(`http://localhost:4000/history`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(item)
+  });
+  if (response.ok) {
+    const json = await response.json();
+    console.log(json);
+  }
+  else {
+    throw Error(`${response.status}`);
+  }
+}
+
+export const removeFromHistory = async (id: HistoryItem['id']): Promise<void> => {
+  const response = await fetch(`http://localhost:4000/history`, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  });
+  if (response.ok) {
+    const json = await response.json();
+    console.log(json);
+  }
+  else {
+    throw Error(`${response.status}`);
+  }
+}
+
+

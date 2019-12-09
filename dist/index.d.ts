@@ -4,13 +4,21 @@ export interface Release {
     cover_image: string;
     title: string;
     catno: string;
-    year: number;
+    year: string;
     artist?: string;
-    label?: string;
+    label?: string[];
 }
-export declare const search: (query: string, what: what) => Promise<{
-    releases: Release[];
-}>;
-export declare const getReleasesById: (labelID: number, what: what) => Promise<{
-    releases: Release[];
-}>;
+export interface HistoryItem {
+    id: number;
+    date: string;
+    parameters: {
+        queryString: string;
+        what: what;
+    };
+    result: Release[];
+}
+export declare const search: (query: string, what: what) => Promise<Release[]>;
+export declare const getReleaseById: (id: number) => Promise<Release>;
+export declare const getHistory: () => Promise<HistoryItem[]>;
+export declare const addToHistory: (item: HistoryItem) => Promise<void>;
+export declare const removeFromHistory: (id: number) => Promise<void>;

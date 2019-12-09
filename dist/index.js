@@ -50,34 +50,99 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var response, json, results;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("https://api.discogs.com/database/search?" + what + "=" + query + "&key=OmCRcVUyDaPdkmtfZisk&secret=ITwNkHvKmnERqjmfsbZdTgJVWJvgBVVz")];
+                case 0: return [4 /*yield*/, fetch("http://localhost:4000/data/?" + what + "=" + query)];
                 case 1:
                     response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 3];
                     return [4 /*yield*/, response.json()];
                 case 2:
                     json = _a.sent();
                     results = json.results;
-                    console.log('results: ', results);
                     return [2 /*return*/, results];
+                case 3: throw Error("" + response.status);
             }
         });
     }); };
     // search('Nirvana', 'artist');
-    exports.getReleasesById = function (labelID, what) { return __awaiter(void 0, void 0, void 0, function () {
-        var response, json, releases;
+    exports.getReleaseById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+        var response, json;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("https://api.discogs.com/" + what + "/" + labelID + "/releases")];
+                case 0: return [4 /*yield*/, fetch("http://localhost:4000/data/" + id)];
                 case 1:
                     response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 3];
                     return [4 /*yield*/, response.json()];
                 case 2:
                     json = _a.sent();
-                    releases = json.releases;
-                    return [2 /*return*/, releases];
+                    return [2 /*return*/, json];
+                case 3: throw Error("" + response.status);
+            }
+        });
+    }); };
+    exports.getHistory = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var response, json;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch("http://localhost:4000/history")];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 3];
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    json = _a.sent();
+                    return [2 /*return*/, json];
+                case 3: throw Error("" + response.status);
+            }
+        });
+    }); };
+    exports.addToHistory = function (item) { return __awaiter(void 0, void 0, void 0, function () {
+        var response, json;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch("http://localhost:4000/history", {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(item)
+                    })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 3];
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    json = _a.sent();
+                    console.log(json);
+                    return [3 /*break*/, 4];
+                case 3: throw Error("" + response.status);
+                case 4: return [2 /*return*/];
+            }
+        });
+    }); };
+    exports.removeFromHistory = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+        var response, json;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch("http://localhost:4000/history", {
+                        method: 'DELETE',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                    })];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) return [3 /*break*/, 3];
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    json = _a.sent();
+                    console.log(json);
+                    return [3 /*break*/, 4];
+                case 3: throw Error("" + response.status);
+                case 4: return [2 /*return*/];
             }
         });
     }); };
 });
-// getReleases(1, labels);
-// getReleases(108713, artists);
