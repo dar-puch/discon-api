@@ -47,18 +47,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     Object.defineProperty(exports, "__esModule", { value: true });
     ;
     exports.search = function (query, what) { return __awaiter(void 0, void 0, void 0, function () {
-        var response, json, results;
+        var response, json;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, fetch("http://localhost:4000/data/?" + what + "=" + query)];
                 case 1:
                     response = _a.sent();
                     if (!response.ok) return [3 /*break*/, 3];
+                    console.log('response from discon: ', response);
                     return [4 /*yield*/, response.json()];
                 case 2:
                     json = _a.sent();
-                    results = json.results;
-                    return [2 /*return*/, results];
+                    console.log('json from discon: ', json);
+                    // const results: Release[] = json.releases;
+                    return [2 /*return*/, json];
                 case 3: throw Error("" + response.status);
             }
         });

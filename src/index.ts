@@ -25,8 +25,7 @@ export const search = async (query: string, what: what): Promise<Release[]> => {
   const response = await fetch(`http://localhost:4000/data/?${what}=${query}`);
   if (response.ok) {
     const json = await response.json();
-    const results: Release[] = json.results;
-    return results;
+    return json;
   }
   else {
     throw Error(`${response.status}`);
