@@ -9,7 +9,7 @@ export interface Release {
     label?: string[];
 }
 export interface HistoryItem {
-    id: number;
+    queryId: string;
     date: string;
     parameters: {
         queryString: string;
@@ -21,4 +21,4 @@ export declare const search: (query: string, what: what) => Promise<Release[]>;
 export declare const getReleaseById: (id: number) => Promise<Release>;
 export declare const getHistory: () => Promise<HistoryItem[]>;
 export declare const addToHistory: (item: HistoryItem) => Promise<void>;
-export declare const removeFromHistory: (id: number) => Promise<void>;
+export declare const removeFromHistory: (id: string) => Promise<void>;

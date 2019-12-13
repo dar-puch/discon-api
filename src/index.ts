@@ -12,7 +12,7 @@ export interface Release {
 };
 
 export interface HistoryItem {
-  id: number;
+  queryId: string;
   date: string;
   parameters: {
     queryString: string,
@@ -74,8 +74,8 @@ export const addToHistory = async (item: HistoryItem): Promise<void> => {
   }
 }
 
-export const removeFromHistory = async (id: HistoryItem['id']): Promise<void> => {
-  const response = await fetch(`http://localhost:4000/history`, {
+export const removeFromHistory = async (id: HistoryItem['queryId'] | 'all'): Promise<void> => {
+  const response = await fetch(`http://localhost:4000/history/?id=${id}`, {
     method: 'DELETE',
     headers: {
       'Accept': 'application/json',

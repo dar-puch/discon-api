@@ -1,6 +1,6 @@
 {
   "name": "discon",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "library for connecting with Discogs API",
   "main": "index.js",
   "scripts": {

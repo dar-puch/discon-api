@@ -54,12 +54,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 case 1:
                     response = _a.sent();
                     if (!response.ok) return [3 /*break*/, 3];
-                    console.log('response from discon: ', response);
                     return [4 /*yield*/, response.json()];
                 case 2:
                     json = _a.sent();
-                    console.log('json from discon: ', json);
-                    // const results: Release[] = json.releases;
                     return [2 /*return*/, json];
                 case 3: throw Error("" + response.status);
             }
@@ -127,7 +124,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var response, json;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://localhost:4000/history", {
+                case 0: return [4 /*yield*/, fetch("http://localhost:4000/history/?id=" + id, {
                         method: 'DELETE',
                         headers: {
                             'Accept': 'application/json',
