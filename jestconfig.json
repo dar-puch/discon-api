@@ -3,27 +3,29 @@
     "node_modules",
     "src"
   ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-      "moduleNameMapper": {
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js"
+  ],
+  "moduleNameMapper": {
     "\\.(css|scss)$": "identity-obj-proxy"
   },
   "transform": {
     "^.+\\.tsx?$": "ts-jest",
-      "^.+\\.jsx?$": "babel-jest"
+    "^.+\\.jsx?$": "babel-jest"
   },
   "reporters": [
     "default"
   ],
-    "coveragePathIgnorePatterns": ["node_modules", "__tests__"],
-      "collectCoverageFrom": ["src/**/*.{ts,tsx}", "!src/**/*.d.ts"],
-        "snapshotSerializers": [
-          "enzyme-to-json/serializer"
-        ],
-          "testRegex": "__tests__/.*\\.test\\.(ts|tsx|js)$",
-            "testURL": "http://localhost",
-              "setupTestFrameworkScriptFile": "<rootDir>/enzyme-react-16-config.js"
+  "coveragePathIgnorePatterns": [
+    "node_modules",
+    "__tests__"
+  ],
+  "collectCoverageFrom": [
+    "src/**/*.{ts,tsx}",
+    "!src/**/*.d.ts"
+  ],
+  "testRegex": "__tests__/.*\\.test\\.(ts|tsx|js)$",
+  "testURL": "http://localhost"
 }
