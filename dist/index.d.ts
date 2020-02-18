@@ -17,6 +17,7 @@ export interface HistoryItem {
     };
     result: Release[];
 }
+export declare const doFetch: (urlTail: string, method: string, headers: HeadersInit, body: string | null) => Promise<any>;
 export declare const search: (query: string, what: what) => Promise<Release[]>;
 export declare const getReleaseById: (id: number) => Promise<Release>;
 export declare const getHistory: () => Promise<HistoryItem[]>;

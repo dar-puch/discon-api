@@ -21,10 +21,55 @@ export interface HistoryItem {
   result: Release[];
 }
 
-
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
+}
+
+// typ zwracany - można tu dopisać? Inferuje się Promise<any>
+// export type fetchResponse = Release[] | Release | HistoryItem[] | HistoryItem | void
+// to jest komunikat z typascript-practice-app, oznaczający błąd w addToHistory: saving on unload failed:  JSON.parse: unexpected character at line 1 column 1 of the JSON data. Należy to zbadać
+
+export const doFetch = async (urlTail: string, method: string = 'GET', headers: HeadersInit = {}, body: string | null = null) => {
+  try {
+    const response = await fetch(`http://localhost:4000/${urlTail}`, {
+      method: method,
+      headers: headers,
+      body: body
+    });
+    if (response.ok) {
+      const json = await response.json();
+      return json;
+    }
+    else {
+      throw Error(`${response.status}`);
+    }
+  }
+  catch (e) {
+    console.log('fetch failed: ', e.message)
+    throw Error(e.message);
+  }
+}
+
+export const search = async (query: string, what: what): Promise<Release[]> => {
+  return await doFetch(`data/?${what}=${query}`);
+}
+
+export const getReleaseById = async (id: number): Promise<Release> => {
+  return await doFetch(`data/${id}`);
+}
+
+export const getHistory = async (): Promise<HistoryItem[]> => {
+  return await doFetch('history');
+}
+
+export const addToHistory = async (item: HistoryItem): Promise<void> => {
+  const stringified = JSON.stringify(item);
+  await doFetch('history', 'POST', headers, stringified);
+}
+
+export const removeFromHistory = async (id: HistoryItem['queryId'] | 'all'): Promise<void> => {
+  await doFetch(`history/?id=${id}`, 'DELETE', headers);
 }
 
 // export const search = async (query: string, what: what): Promise<Release[]> => {
@@ -38,9 +83,7 @@ const headers = {
 //   }
 // }
 
-export const search = async (query: string, what: what): Promise<Release[]> => {
-  return doFetch(`data/?${what}=${query}`, 'GET', headers, null);
-}
+
 // search('Nirvana', 'artist');
 
 
@@ -54,9 +97,7 @@ export const search = async (query: string, what: what): Promise<Release[]> => {
 //     throw Error(`${response.status}`);
 //   }
 // }
-export const getReleaseById = async (id: number): Promise<Release> => {
-  return doFetch(`data/${id}`, 'GET', headers, null);
-}
+
 
 // export const getHistory = async (): Promise<HistoryItem[]> => {
 //   const response = await fetch(`http://localhost:4000/history`);
@@ -68,9 +109,7 @@ export const getReleaseById = async (id: number): Promise<Release> => {
 //     throw Error(`${response.status}`);
 //   }
 // };
-export const getHistory = async (): Promise<HistoryItem[]> => {
-  return doFetch('history', 'GET', headers, null);
-}
+
 
 // export const addToHistory = async (item: HistoryItem): Promise<void> => {
 //   const response = await fetch(`http://localhost:4000/history`, {
@@ -89,9 +128,7 @@ export const getHistory = async (): Promise<HistoryItem[]> => {
 //     throw Error(`${response.status}`);
 //   }
 // }
-export const addToHistory = async (item: HistoryItem): Promise<void> => {
-  doFetch('history', 'POST', headers, `JSON.stringify(${item})`);
-}
+
 
 // export const removeFromHistory = async (id: HistoryItem['queryId'] | 'all'): Promise<void> => {
 //   const response = await fetch(`http://localhost:4000/history/?id=${id}`, {
@@ -110,21 +147,3 @@ export const addToHistory = async (item: HistoryItem): Promise<void> => {
 //   }
 // }
 
-export const removeFromHistory = async (id: HistoryItem['queryId'] | 'all'): Promise<void> => {
-  doFetch(`history/?id=${id}`, 'DELETE', headers, '');
-}
-
-export const doFetch = async (urlTail: any, method: string, headers: HeadersInit, body: string | null): Promise<any> => {
-  const response = await fetch(`http://localhost:4000/${urlTail}`, {
-    method: method,
-    headers: headers,
-    body: body
-  });
-  if (response.ok) {
-    const json = await response.json();
-    return json;
-  }
-  else {
-    throw Error(`${response.status}`);
-  }
-}

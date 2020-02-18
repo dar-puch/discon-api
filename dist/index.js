@@ -46,11 +46,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     ;
-    exports.search = function (query, what) { return __awaiter(void 0, void 0, void 0, function () {
+    var headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    };
+    // typ zwracany - można tu dopisać?
+    // export type fetchResponse = Release[] | Release | HistoryItem[] | HistoryItem | void
+    exports.doFetch = function (urlTail, method, headers, body) { return __awaiter(void 0, void 0, void 0, function () {
         var response, json;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://localhost:4000/data/?" + what + "=" + query)];
+                case 0: return [4 /*yield*/, fetch("http://localhost:4000/" + urlTail, {
+                        method: method,
+                        headers: headers,
+                        body: body
+                    })];
                 case 1:
                     response = _a.sent();
                     if (!response.ok) return [3 /*break*/, 3];
@@ -62,86 +72,117 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             }
         });
     }); };
-    // search('Nirvana', 'artist');
-    exports.getReleaseById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-        var response, json;
+    exports.search = function (query, what) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://localhost:4000/data/" + id)];
-                case 1:
-                    response = _a.sent();
-                    if (!response.ok) return [3 /*break*/, 3];
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    json = _a.sent();
-                    return [2 /*return*/, json];
-                case 3: throw Error("" + response.status);
+                case 0: return [4 /*yield*/, exports.doFetch("data/?" + what + "=" + query, 'GET', {}, null)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
+    exports.getReleaseById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, exports.doFetch("data/" + id, 'GET', {}, null)];
+                case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
     exports.getHistory = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response, json;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://localhost:4000/history")];
-                case 1:
-                    response = _a.sent();
-                    if (!response.ok) return [3 /*break*/, 3];
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    json = _a.sent();
-                    return [2 /*return*/, json];
-                case 3: throw Error("" + response.status);
+                case 0: return [4 /*yield*/, exports.doFetch('history', 'GET', {}, null)];
+                case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
     exports.addToHistory = function (item) { return __awaiter(void 0, void 0, void 0, function () {
-        var response, json;
+        var stringified;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://localhost:4000/history", {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(item)
-                    })];
+                case 0:
+                    alert("item: " + item);
+                    stringified = JSON.stringify(item);
+                    alert("JSON.stringified: " + stringified);
+                    return [4 /*yield*/, exports.doFetch('history', 'POST', headers, stringified)];
                 case 1:
-                    response = _a.sent();
-                    if (!response.ok) return [3 /*break*/, 3];
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    json = _a.sent();
-                    console.log(json);
-                    return [3 /*break*/, 4];
-                case 3: throw Error("" + response.status);
-                case 4: return [2 /*return*/];
+                    _a.sent();
+                    return [2 /*return*/];
             }
         });
     }); };
     exports.removeFromHistory = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-        var response, json;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://localhost:4000/history/?id=" + id, {
-                        method: 'DELETE',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        }
-                    })];
+                case 0: return [4 /*yield*/, exports.doFetch("history/?id=" + id, 'DELETE', headers, null)];
                 case 1:
-                    response = _a.sent();
-                    if (!response.ok) return [3 /*break*/, 3];
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    json = _a.sent();
-                    console.log(json);
-                    return [3 /*break*/, 4];
-                case 3: throw Error("" + response.status);
-                case 4: return [2 /*return*/];
+                    _a.sent();
+                    return [2 /*return*/];
             }
         });
     }); };
 });
+// export const search = async (query: string, what: what): Promise<Release[]> => {
+//   const response = await fetch(`http://localhost:4000/data/?${what}=${query}`);
+//   if (response.ok) {
+//     const json = await response.json();
+//     return json;
+//   }
+//   else {
+//     throw Error(`${response.status}`);
+//   }
+// }
+// search('Nirvana', 'artist');
+// export const getReleaseById = async (id: number): Promise<Release> => {
+//   const response = await fetch(`http://localhost:4000/data/${id}`);
+//   if (response.ok) {
+//     const json = await response.json();
+//     return json;
+//   }
+//   else {
+//     throw Error(`${response.status}`);
+//   }
+// }
+// export const getHistory = async (): Promise<HistoryItem[]> => {
+//   const response = await fetch(`http://localhost:4000/history`);
+//   if (response.ok) {
+//     const json = await response.json();
+//     return json;
+//   }
+//   else {
+//     throw Error(`${response.status}`);
+//   }
+// };
+// export const addToHistory = async (item: HistoryItem): Promise<void> => {
+//   const response = await fetch(`http://localhost:4000/history`, {
+//     method: 'POST',
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(item)
+//   });
+//   if (response.ok) {
+//     const json = await response.json();
+//     console.log(json);
+//   }
+//   else {
+//     throw Error(`${response.status}`);
+//   }
+// }
+// export const removeFromHistory = async (id: HistoryItem['queryId'] | 'all'): Promise<void> => {
+//   const response = await fetch(`http://localhost:4000/history/?id=${id}`, {
+//     method: 'DELETE',
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json'
+//     }
+//   });
+//   if (response.ok) {
+//     const json = await response.json();
+//     console.log(json);
+//   }
+//   else {
+//     throw Error(`${response.status}`);
+//   }
+// }
