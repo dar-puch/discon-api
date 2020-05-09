@@ -1,5 +1,4 @@
 import { doFetch } from '../index';
-//zmienić kod źródłowy, żeby funkcje się nie powtarzały i dostosować do tego testy (wtedy też się nie będą powtarzać).
 function mockFetch(response: { ok: boolean, status: string }) {
   return jest.fn().mockImplementation(() =>
     Promise.resolve({

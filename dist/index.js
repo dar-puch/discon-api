@@ -50,32 +50,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
-    // typ zwracany - można tu dopisać?
-    // export type fetchResponse = Release[] | Release | HistoryItem[] | HistoryItem | void
-    exports.doFetch = function (urlTail, method, headers, body) { return __awaiter(void 0, void 0, void 0, function () {
-        var response, json;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("http://localhost:4000/" + urlTail, {
-                        method: method,
-                        headers: headers,
-                        body: body
-                    })];
-                case 1:
-                    response = _a.sent();
-                    if (!response.ok) return [3 /*break*/, 3];
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    json = _a.sent();
-                    return [2 /*return*/, json];
-                case 3: throw Error("" + response.status);
-            }
+    exports.doFetch = function (urlTail, method, headers, body) {
+        if (method === void 0) { method = 'GET'; }
+        if (headers === void 0) { headers = {}; }
+        if (body === void 0) { body = null; }
+        return __awaiter(void 0, void 0, void 0, function () {
+            var response, json, e_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 5, , 6]);
+                        return [4 /*yield*/, fetch("http://localhost:4000/" + urlTail, {
+                                method: method,
+                                headers: headers,
+                                body: body
+                            })];
+                    case 1:
+                        response = _a.sent();
+                        if (!response.ok) return [3 /*break*/, 3];
+                        return [4 /*yield*/, response.json()];
+                    case 2:
+                        json = _a.sent();
+                        return [2 /*return*/, json];
+                    case 3: throw Error("" + response.status);
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        e_1 = _a.sent();
+                        console.log('fetch failed: ', e_1.message);
+                        throw Error(e_1.message);
+                    case 6: return [2 /*return*/];
+                }
+            });
         });
-    }); };
+    };
     exports.search = function (query, what) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, exports.doFetch("data/?" + what + "=" + query, 'GET', {}, null)];
+                case 0: return [4 /*yield*/, exports.doFetch("data/?" + what + "=" + query)];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -83,7 +94,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     exports.getReleaseById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, exports.doFetch("data/" + id, 'GET', {}, null)];
+                case 0: return [4 /*yield*/, exports.doFetch("data/" + id)];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -91,7 +102,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     exports.getHistory = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, exports.doFetch('history', 'GET', {}, null)];
+                case 0: return [4 /*yield*/, exports.doFetch('history')];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -101,9 +112,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    alert("item: " + item);
                     stringified = JSON.stringify(item);
-                    alert("JSON.stringified: " + stringified);
                     return [4 /*yield*/, exports.doFetch('history', 'POST', headers, stringified)];
                 case 1:
                     _a.sent();
@@ -114,7 +123,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     exports.removeFromHistory = function (id) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, exports.doFetch("history/?id=" + id, 'DELETE', headers, null)];
+                case 0: return [4 /*yield*/, exports.doFetch("history/?id=" + id, 'DELETE', headers)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
