@@ -1,3 +1,0 @@
-{
-	"extends": ["@stepstone/stylelint-config-stepstone"]
-}
